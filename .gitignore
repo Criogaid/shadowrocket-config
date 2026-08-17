@@ -1,0 +1,11 @@
+# Local/private inputs
+.pi-subagents/
+references/*.conf
+references/private/
+
+# Temporary files
+*.tmp
+*.bak
+__pycache__/
+*.pyc
+.cache/

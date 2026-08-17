@@ -1,0 +1,38 @@
+name: Check reviewed upstream scripts
+
+on:
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - name: Check available revisions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python tools/check_upstream.py
+          if git diff --quiet -- vendor/manifest.json; then
+            exit 0
+          fi
+          branch=automation/upstream-review
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git checkout -B "$branch"
+          git add vendor/manifest.json
+          git commit -m "chore: record available upstream revisions"
+          git push --force-with-lease origin "$branch"
+          if gh pr view "$branch" >/dev/null 2>&1; then
+            gh pr edit "$branch" --title "chore: review upstream script changes" --body "Upstream revisions changed. Reviewed commits, local script bytes, and local hashes remain unchanged pending human review."
+          else
+            gh pr create --base main --head "$branch" --title "chore: review upstream script changes" --body "Upstream revisions changed. Reviewed commits, local script bytes, and local hashes remain unchanged pending human review."
+          fi

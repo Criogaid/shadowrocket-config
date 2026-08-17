@@ -1,0 +1,41 @@
+# Curated static app coverage derived from fmz200/wool_scripts.
+# Only ad, promotion, sponsor, or watermark endpoints are included.
+
+
+# Zhihu and Xiaohongshu
+URL-REGEX,^https://api\.zhihu\.com/commercial_api/(answer/[0-9]+/bottom-v2|article/[0-9]+/bottom-v2|banners_v3/app_topstory_banner|launch_v2|real_time_launch_v2),REJECT-DICT
+URL-REGEX,^https://api\.zhihu\.com/ad-style-service/request,REJECT-DICT
+URL-REGEX,^https?://www\.xiaohongshu\.com/api/sns/v[0-9]+/ads/resource,REJECT-DICT
+URL-REGEX,^https?://ci\.xiaohongshu\.com/system_config/watermark,REJECT-IMG
+
+# Douyin and Kuaishou
+URL-REGEX,^https?://[^/]+\.amemv\.com/(api|motor)/ad/,REJECT-200
+URL-REGEX,^https://az2-api\.ksapisrv\.com/rest/n/ad/,REJECT-DICT
+
+# NetEase Music and QQ Music
+URL-REGEX,^https?://(ipv4|interface|interface3)\.music\.163\.com/e?api/ad,REJECT-DICT
+URL-REGEX,^https?://y\.gtimg\.cn/music/common/upload/t_splash_info/,REJECT
+
+# Taobao, JD, and Pinduoduo
+URL-REGEX,^https?://acs\.m\.taobao\.com/gw/mtop\.alibaba\.advertisementservice\.getadv,REJECT-DICT
+URL-REGEX,^https?://guide-acs\.m\.taobao\.com/gw/mtop\.taobao\.wireless\.home\.newface\.awesome\.get,REJECT-DICT
+URL-REGEX,^https?://api\.m\.jd\.com/client\.action\?functionId=start,REJECT-IMG
+URL-REGEX,^https?://(bdsp-x|dsp-x)\.jd\.com/adx/,REJECT-200
+URL-REGEX,^https?://api\.(pinduoduo|yangkeduo)\.com/api/cappuccino/splash,REJECT
+
+# Meituan, Dianping, and Eleme
+URL-REGEX,^https?://wmapi\.meituan\.com/api/v7/(loadInfo|openscreen|startpicture),REJECT-DICT
+URL-REGEX,^https?://mapi\.dianping\.com/mapi/operating/(indexopsmodules|loadsplashconfig),REJECT
+URL-REGEX,^https?://elemecdn\.com/.+/sitemap,REJECT
+
+# Amap, Baidu Maps, and Didi
+URL-REGEX,^https?://m5\.amap\.com/ws/shield/dsp/app/startup/init,REJECT-DICT
+URL-REGEX,^https?://optimus-ads\.amap\.com/uploadimg/[A-Za-z0-9]+\.gif,REJECT-200
+URL-REGEX,^https?://newclient\.map\.baidu\.com/client/phpui2/\?qt=ads,REJECT-DICT
+URL-REGEX,^https?://hd\.xiaojukeji\.com/d,REJECT-DICT
+
+# Cainiao, SF Express, Ctrip, and travel
+URL-REGEX,^https?://cn-acs\.m\.cainiao\.com/gw/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.(batch\.show\.v2|index)\.cn,REJECT-DICT
+URL-REGEX,^https?://ccsp-egmas\.sf-express\.com/cx-app-base/base/app/ad/queryInfoFlow,REJECT-DICT
+URL-REGEX,^https?://ma-adx\.ctrip\.com/_ma\.gif,REJECT
+URL-REGEX,^https?://acs\.m\.taobao\.com/gw/mtop\.fliggy\.crm\.screen\.(allresource|predict),REJECT-DICT

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "scripts": [
+    {
+      "path": "vendor/scripts/bilibili-ads.js",
+      "upstreamRepo": "app2smile/rules",
+      "upstreamPath": "js/bilibili-json.js",
+      "reviewedCommit": "5380447220ea3df4abee8b77dd118de9165631fa",
+      "availableCommit": "5380447220ea3df4abee8b77dd118de9165631fa",
+      "upstreamSha256": "748ad16a92532bde2c439a8b9975f465381d20e24328cf2a58ff3a2a27328d84",
+      "localSha256": "ce44680e2e347504942efe22ba0efdfe3c27458a6d618ae8fe4c73b92ea6fca9",
+      "runtimeCommit": "9b925153cffcc243d9e8625f8e8ae43e03d9c410",
+      "spdx": "MIT",
+      "licensePath": "vendor/licenses/app2smile-MIT.txt",
+      "triggerHost": "app.bilibili.com",
+      "triggerPath": "^/x/v2/(?:splash/(?:list|show)|feed/index)(?:\\?|$)",
+      "reviewedAt": "2026-08-17",
+      "modifications": "Removed notifications, tab/UI cleanup, method checks, and unrelated branches; retained only splash and feed advertising removal with malformed/unmatched fail-open behavior."
+    }
+  ],
+  "derivedSources": [
+    {
+      "path": "rewrites/apps.list",
+      "upstreamRepo": "fmz200/wool_scripts",
+      "upstreamPath": "QuantumultX/rewrite/rewrite.snippet",
+      "reviewedCommit": "9069a18f8803a5f6904c4ed234870973605e265a",
+      "availableCommit": "9069a18f8803a5f6904c4ed234870973605e265a",
+      "upstreamSha256": "be950bd64086028e7fc092b40ff1b32b809443749ede70406cf0aeedf33ee516",
+      "localSha256": "ed16b4e4853299790b03d495f575303d940e695e40bf6f283a8bd21116b91cf9",
+      "spdx": "GPL-3.0-only",
+      "reviewedAt": "2026-08-17",
+      "modifications": "Selected app-scoped static ad, promotion, sponsor, and watermark endpoints and converted them to Shadowrocket syntax; removed unsupported Weibo and unsafe full-response iQIYI/Youku rules; copied no upstream scripts or unlock rules."
+    }
+  ]
+}
