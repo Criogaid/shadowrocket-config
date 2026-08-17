@@ -69,7 +69,7 @@ MITM_HOSTS = (
     "newclient.map.baidu.com", "optimus-ads.amap.com", "wmapi.meituan.com",
     "www.xiaohongshu.com", "y.gtimg.cn",
 )
-CHECKOUT = "actions/checkout@11d5960a326750d5838078e36cf38b85af677262"
+CHECKOUT = "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1"
 FORBIDDEN_SCRIPT_PATTERNS = {
     "outbound HTTP": r"\$httpClient|\$task|\bfetch\s*\(|XMLHttpRequest|WebSocket",
     "persistence": r"\$persistentStore|\$prefs|localStorage|sessionStorage",
