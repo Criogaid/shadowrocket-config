@@ -36,7 +36,7 @@ node tests/test_scripts.mjs
 
 ## DNS 与路由
 
-直连域名沿用本地 `references/Test.conf` 的国内加密 DNS 组合：AliDNS 使用 DoQ `quic://dns.alidns.com:853` 和 DoH3 `h3://dns.alidns.com/dns-query`，DNSPod 使用 DoH `https://doh.pub/dns-query` 和 DoT `tls://dot.pub:853`。`[Host]` 将 AliDNS 固定到 `223.5.5.5`，将 DNSPod 的 `doh.pub`、`dot.pub` 固定到 `120.53.53.53`。默认和代理域名通过当前默认节点使用 Quad9 与 Cloudflare，并固定到 `9.9.9.9` 与 `1.1.1.1`。加密 DNS 端点保留域名以维持正确的 TLS SNI；`use-local-host-item-for-proxy = true` 确保代理连接使用本地映射。`proxy-dns-server` 使用国内普通 DNS 解决代理节点域名。配置启用 IPv6 但不优先 IPv6，保留私有地址回答，并为 STUN 返回 `1.1.1.1` 与 `::1`。`block-quic = all-proxy` 只禁用代理流量的 QUIC，不影响国内直连 DoQ/DoH3。
+主 DNS 沿用本地 `references/Test.conf` 的国内加密组合：AliDNS 使用 DoQ `quic://dns.alidns.com:853` 和 DoH3 `h3://dns.alidns.com/dns-query`，DNSPod 使用 DoH `https://doh.pub/dns-query` 和 DoT `tls://dot.pub:853`。`fallback-dns-server` 保留经当前代理访问的 Quad9 与 Cloudflare。未使用 `direct-dns-server`：该字段虽出现在近期第三方模板中，但实机 DNS 日志显示它没有按远程 DIRECT 域名规则分流，因此不把它作为配置正确性的前提。`[Host]` 将加密 DNS 域名固定到已审查的服务 IP，同时保留域名以维持 TLS SNI。`proxy-dns-server` 使用国内普通 DNS 解决代理节点域名。配置启用 IPv6 但不优先 IPv6，保留私有地址回答，并为 STUN 返回 `1.1.1.1` 与 `::1`。`block-quic = all-proxy` 只禁用代理流量的 QUIC，不影响国内直连 DoQ/DoH3。
 
 仓库每日同步两类上游：
 

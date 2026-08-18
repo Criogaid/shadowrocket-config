@@ -24,7 +24,7 @@ MANIFEST = ROOT / "vendor" / "manifest.json"
 SCRIPT_ROOT = (ROOT / "vendor" / "scripts").resolve()
 GENERATED = ROOT / "rules" / "generated"
 OWN_RAW_PREFIX = "https://raw.githubusercontent.com/Criogaid/shadowrocket-config/main/"
-DIRECT_DNS = "quic://dns.alidns.com:853,h3://dns.alidns.com/dns-query,https://doh.pub/dns-query,tls://dot.pub:853"
+PRIMARY_DNS = "quic://dns.alidns.com:853,h3://dns.alidns.com/dns-query,https://doh.pub/dns-query,tls://dot.pub:853"
 DNS_HOSTS = (
     "dns.quad9.net = 9.9.9.9",
     "cloudflare-dns.com = 1.1.1.1",
@@ -148,11 +148,13 @@ def validate_config(text: str) -> None:
     }
     if missing := sorted(required_settings - set(general)):
         fail(f"missing required general settings: {missing}")
-    expected_doh = "https://dns.quad9.net/dns-query#proxy,https://cloudflare-dns.com/dns-query#proxy"
-    if f"dns-server = {expected_doh}" not in general or f"fallback-dns-server = {expected_doh}" not in general:
-        fail("Quad9 and Cloudflare DoH must use the documented #proxy fragment")
-    if f"direct-dns-server = {DIRECT_DNS}" not in general:
-        fail("direct DNS must use AliDNS DoQ/DoH3 and DNSPod DoH/DoT")
+    fallback_dns = "https://dns.quad9.net/dns-query#proxy,https://cloudflare-dns.com/dns-query#proxy"
+    if f"dns-server = {PRIMARY_DNS}" not in general:
+        fail("primary DNS must use AliDNS DoQ/DoH3 and DNSPod DoH/DoT")
+    if f"fallback-dns-server = {fallback_dns}" not in general:
+        fail("fallback DNS must use Quad9 and Cloudflare through the current proxy")
+    if any(line.startswith("direct-dns-server =") for line in general):
+        fail("direct-dns-server is forbidden because device behavior does not reliably follow remote DIRECT rules")
     if "proxy-dns-server = 223.5.5.5,119.29.29.29" not in general:
         fail("proxy DNS must retain domestic bootstrap resolvers")
     if data_lines(parsed["Host"]) != list(DNS_HOSTS):

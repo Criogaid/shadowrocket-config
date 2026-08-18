@@ -31,9 +31,12 @@ class ConfigRegressionTests(unittest.TestCase):
 
     def test_encrypted_dns_protocols_and_hosts_are_exact(self) -> None:
         self.assertNotIn("#proxy=PROXY", self.text)
-        self.assertIn(f"direct-dns-server = {validate.DIRECT_DNS}", self.text)
+        self.assertNotIn("direct-dns-server =", self.text)
+        self.assertIn(f"dns-server = {validate.PRIMARY_DNS}", self.text)
         self.assert_rejected(self.text.replace("#proxy,", "#proxy=PROXY,", 1))
         self.assert_rejected(self.text.replace("quic://dns.alidns.com:853", "tls://dns.alidns.com:853"))
+        marker = "fallback-dns-server ="
+        self.assert_rejected(self.text.replace(marker, f"direct-dns-server = {validate.PRIMARY_DNS}\n{marker}"))
         self.assertEqual(validate.data_lines(validate.sections(self.text)["Host"]), list(validate.DNS_HOSTS))
         self.assert_rejected(self.text.replace("dns.quad9.net = 9.9.9.9", "dns.quad9.net = 149.112.112.112"))
         self.assert_rejected(self.text.replace("dns.alidns.com = 223.5.5.5", "dns.alidns.com = 223.6.6.6"))
