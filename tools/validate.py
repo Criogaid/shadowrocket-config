@@ -24,10 +24,9 @@ MANIFEST = ROOT / "vendor" / "manifest.json"
 SCRIPT_ROOT = (ROOT / "vendor" / "scripts").resolve()
 GENERATED = ROOT / "rules" / "generated"
 OWN_RAW_PREFIX = "https://raw.githubusercontent.com/Criogaid/shadowrocket-config/main/"
-PRIMARY_DNS = "quic://dns.alidns.com:853,h3://dns.alidns.com/dns-query,https://doh.pub/dns-query,tls://dot.pub:853"
+PRIMARY_DNS = "quic://dns.alidns.com:853,h3://dns.alidns.com/dns-query"
+FALLBACK_DNS = "https://doh.pub/dns-query,tls://dot.pub:853"
 DNS_HOSTS = (
-    "dns.quad9.net = 9.9.9.9",
-    "cloudflare-dns.com = 1.1.1.1",
     "dns.alidns.com = 223.5.5.5",
     "doh.pub = 120.53.53.53",
     "dot.pub = 120.53.53.53",
@@ -143,18 +142,18 @@ def validate_config(text: str) -> None:
     required_settings = {
         "ipv6 = true", "prefer-ipv6 = false", "private-ip-answer = true",
         "stun-response-ip = 1.1.1.1", "stun-response-ipv6 = ::1", "block-quic = all-proxy",
-        "use-local-host-item-for-proxy = true",
         f"update-url = {OWN_RAW_PREFIX}dist/shadowrocket.conf",
     }
     if missing := sorted(required_settings - set(general)):
         fail(f"missing required general settings: {missing}")
-    fallback_dns = "https://dns.quad9.net/dns-query#proxy,https://cloudflare-dns.com/dns-query#proxy"
     if f"dns-server = {PRIMARY_DNS}" not in general:
-        fail("primary DNS must use AliDNS DoQ/DoH3 and DNSPod DoH/DoT")
-    if f"fallback-dns-server = {fallback_dns}" not in general:
-        fail("fallback DNS must use Quad9 and Cloudflare through the current proxy")
+        fail("primary DNS must use AliDNS DoQ and DoH3")
+    if f"fallback-dns-server = {FALLBACK_DNS}" not in general:
+        fail("fallback DNS must use DNSPod DoH and DoT")
     if any(line.startswith("direct-dns-server =") for line in general):
         fail("direct-dns-server is forbidden because device behavior does not reliably follow remote DIRECT rules")
+    if any(line.startswith("use-local-host-item-for-proxy =") for line in general):
+        fail("proxy domains must retain Shadowrocket's default remote DNS behavior")
     if "proxy-dns-server = 223.5.5.5,119.29.29.29" not in general:
         fail("proxy DNS must retain domestic bootstrap resolvers")
     if data_lines(parsed["Host"]) != list(DNS_HOSTS):

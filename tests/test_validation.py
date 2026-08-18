@@ -30,19 +30,19 @@ class ConfigRegressionTests(unittest.TestCase):
         validate.validate_config(self.text)
 
     def test_encrypted_dns_protocols_and_hosts_are_exact(self) -> None:
-        self.assertNotIn("#proxy=PROXY", self.text)
+        self.assertNotIn("#proxy", self.text)
         self.assertNotIn("direct-dns-server =", self.text)
+        self.assertNotIn("use-local-host-item-for-proxy =", self.text)
         self.assertIn(f"dns-server = {validate.PRIMARY_DNS}", self.text)
-        self.assert_rejected(self.text.replace("#proxy,", "#proxy=PROXY,", 1))
+        self.assertIn(f"fallback-dns-server = {validate.FALLBACK_DNS}", self.text)
         self.assert_rejected(self.text.replace("quic://dns.alidns.com:853", "tls://dns.alidns.com:853"))
         marker = "fallback-dns-server ="
         self.assert_rejected(self.text.replace(marker, f"direct-dns-server = {validate.PRIMARY_DNS}\n{marker}"))
+        self.assert_rejected(self.text.replace("ipv6 = true", "use-local-host-item-for-proxy = true\nipv6 = true"))
         self.assertEqual(validate.data_lines(validate.sections(self.text)["Host"]), list(validate.DNS_HOSTS))
-        self.assert_rejected(self.text.replace("dns.quad9.net = 9.9.9.9", "dns.quad9.net = 149.112.112.112"))
         self.assert_rejected(self.text.replace("dns.alidns.com = 223.5.5.5", "dns.alidns.com = 223.6.6.6"))
         self.assert_rejected(self.text.replace("doh.pub = 120.53.53.53", "doh.pub = 1.12.12.12"))
         self.assert_rejected(self.text.replace("dot.pub = 120.53.53.53", "dot.pub = 1.12.12.12"))
-        self.assert_rejected(self.text.replace("use-local-host-item-for-proxy = true", "use-local-host-item-for-proxy = false"))
 
     def test_authoritative_service_rule_sets_have_exact_order_and_types(self) -> None:
         ordered = [validate.GENERATED_RULES[name] for name in ("github", "apple", "icloud", "microsoft", "private", "proxy", "direct")]
