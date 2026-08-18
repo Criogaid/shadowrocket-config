@@ -24,11 +24,13 @@ MANIFEST = ROOT / "vendor" / "manifest.json"
 SCRIPT_ROOT = (ROOT / "vendor" / "scripts").resolve()
 GENERATED = ROOT / "rules" / "generated"
 OWN_RAW_PREFIX = "https://raw.githubusercontent.com/Criogaid/shadowrocket-config/main/"
-DOH_HOSTS = (
+DIRECT_DNS = "quic://dns.alidns.com:853,h3://dns.alidns.com/dns-query,https://doh.pub/dns-query,tls://dot.pub:853"
+DNS_HOSTS = (
     "dns.quad9.net = 9.9.9.9",
     "cloudflare-dns.com = 1.1.1.1",
     "dns.alidns.com = 223.5.5.5",
     "doh.pub = 120.53.53.53",
+    "dot.pub = 120.53.53.53",
 )
 SCRIPT_PATH = "vendor/scripts/bilibili-ads.js"
 SCRIPT_RUNTIME_COMMIT = "9b925153cffcc243d9e8625f8e8ae43e03d9c410"
@@ -149,12 +151,12 @@ def validate_config(text: str) -> None:
     expected_doh = "https://dns.quad9.net/dns-query#proxy,https://cloudflare-dns.com/dns-query#proxy"
     if f"dns-server = {expected_doh}" not in general or f"fallback-dns-server = {expected_doh}" not in general:
         fail("Quad9 and Cloudflare DoH must use the documented #proxy fragment")
-    if "direct-dns-server = https://dns.alidns.com/dns-query,https://doh.pub/dns-query" not in general:
-        fail("direct DNS must use AliDNS and DNSPod")
+    if f"direct-dns-server = {DIRECT_DNS}" not in general:
+        fail("direct DNS must use AliDNS DoQ/DoH3 and DNSPod DoH/DoT")
     if "proxy-dns-server = 223.5.5.5,119.29.29.29" not in general:
         fail("proxy DNS must retain domestic bootstrap resolvers")
-    if data_lines(parsed["Host"]) != list(DOH_HOSTS):
-        fail("DoH host mappings must match the reviewed Quad9, Cloudflare, AliDNS, and DNSPod IPs")
+    if data_lines(parsed["Host"]) != list(DNS_HOSTS):
+        fail("encrypted DNS host mappings must match the reviewed provider IPs")
 
     custom = data_lines((ROOT / "rules" / "custom.list").read_text(encoding="utf-8").splitlines())
     apps = data_lines((ROOT / "rewrites" / "apps.list").read_text(encoding="utf-8").splitlines())
