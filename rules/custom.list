@@ -1,4 +1,5 @@
 # Manual mixed-policy rules. Keep Shadowrocket rule syntax and one rule per line.
 # These rules are inserted before all curated and remote rules.
+DOMAIN-SUFFIX,kripto.life,DIRECT
 DOMAIN,localhost,DIRECT
 IP-CIDR,127.0.0.0/8,DIRECT,no-resolve

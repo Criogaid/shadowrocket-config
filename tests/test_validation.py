@@ -53,6 +53,11 @@ class ConfigRegressionTests(unittest.TestCase):
         self.assertNotIn("v2ray-rules-dat", self.text)
         self.assert_rejected(self.text.replace(validate.GENERATED_RULES["apple"], "DOMAIN-SET,https://example/apple.list,DIRECT"))
 
+    def test_proxy_node_suffix_is_direct_before_remote_rules(self) -> None:
+        rule = "DOMAIN-SUFFIX,kripto.life,DIRECT"
+        self.assertIn(rule, self.text)
+        self.assertLess(self.text.index(rule), self.text.index(validate.GENERATED_RULES["proxy"]))
+
     def test_handwritten_service_fallbacks_are_absent_and_rejected(self) -> None:
         for domain in validate.HANDWRITTEN_SERVICE_SUFFIXES:
             self.assertNotIn(f"DOMAIN-SUFFIX,{domain},", self.text)

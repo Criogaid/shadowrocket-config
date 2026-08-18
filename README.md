@@ -38,6 +38,8 @@ node tests/test_scripts.mjs
 
 DNS 配置按本地 `references/Test.conf` 的职责拆分：主 DNS 使用 AliDNS DoQ `quic://dns.alidns.com:853` 与 DoH3 `h3://dns.alidns.com/dns-query`，备用 DNS 使用 DNSPod DoH `https://doh.pub/dns-query` 与 DoT `tls://dot.pub:853`。未使用 `direct-dns-server`，也未启用 `use-local-host-item-for-proxy`；Shadowrocket 对命中 `PROXY` 的域名默认交给远端代理服务器解析，海外域名不依赖 `fallback-dns-server` 选择海外 DoH。若要求指定某个海外 DoH，Shadowrocket 现有配置没有经实机验证的规则集级 DNS 选择机制，只能让全部查询经过该 DoH 或逐域名维护 `[Host] server:`，本项目不采用这两种方案。`[Host]` 仅固定三个国内加密 DNS 端点并保留域名以维持 TLS SNI。`proxy-dns-server` 使用国内普通 DNS 解决代理节点域名。配置启用 IPv6 但不优先 IPv6，保留私有地址回答，并为 STUN 返回 `1.1.1.1` 与 `::1`。`block-quic = all-proxy` 只禁用代理流量的 QUIC，不影响国内直连 DoQ/DoH3。
 
+代理节点使用的 `kripto.life` 后缀在 `rules/custom.list` 中先匹配 `DIRECT`，优先级高于所有生成的海外规则，从而使用国内 DNS 解析并避免节点连接递归命中 `PROXY`。
+
 仓库每日同步两类上游：
 
 - `Loyalsoldier/clash-rules` 的 `release` 分支仅提供通用 `reject.txt`、`direct.txt`、`proxy.txt`、`private.txt`，转换为 `DOMAIN-SET`。
