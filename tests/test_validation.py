@@ -32,6 +32,9 @@ class ConfigRegressionTests(unittest.TestCase):
     def test_doh_uses_exact_proxy_fragment(self) -> None:
         self.assertNotIn("#proxy=PROXY", self.text)
         self.assert_rejected(self.text.replace("#proxy,", "#proxy=PROXY,", 1))
+        self.assertEqual(validate.data_lines(validate.sections(self.text)["Host"]), list(validate.DOH_HOSTS))
+        self.assert_rejected(self.text.replace("dns.quad9.net = 9.9.9.9", "dns.quad9.net = 149.112.112.112"))
+        self.assert_rejected(self.text.replace("use-local-host-item-for-proxy = true", "use-local-host-item-for-proxy = false"))
 
     def test_authoritative_service_rule_sets_have_exact_order_and_types(self) -> None:
         ordered = [validate.GENERATED_RULES[name] for name in ("github", "apple", "icloud", "microsoft", "private", "proxy", "direct")]

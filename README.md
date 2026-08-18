@@ -36,7 +36,7 @@ node tests/test_scripts.mjs
 
 ## DNS 与路由
 
-直连域名使用 AliDNS 与 DNSPod 的加密 DNS。默认和代理域名通过当前默认节点使用 Quad9 与 Cloudflare，DoH URL 使用 Shadowrocket 文档规定的 `#proxy` 片段；`proxy-dns-server` 使用国内普通 DNS 解决代理节点域名的引导解析。配置启用 IPv6 但不优先 IPv6，保留私有地址回答，并为 STUN 返回 `1.1.1.1` 与 `::1`。代理流量禁用 QUIC。
+直连域名使用 AliDNS 与 DNSPod 的加密 DNS。默认和代理域名通过当前默认节点使用 Quad9 与 Cloudflare，DoH URL 保留域名以维持正确的 TLS SNI，并在 `[Host]` 中分别固定到 `9.9.9.9` 与 `1.1.1.1`；`use-local-host-item-for-proxy = true` 确保代理连接使用这两条本地映射，省去 DoH 服务域名的引导解析。`proxy-dns-server` 使用国内普通 DNS 解决代理节点域名。配置启用 IPv6 但不优先 IPv6，保留私有地址回答，并为 STUN 返回 `1.1.1.1` 与 `::1`。代理流量禁用 QUIC。
 
 仓库每日同步两类上游：
 

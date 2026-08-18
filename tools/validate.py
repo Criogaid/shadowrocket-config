@@ -24,6 +24,7 @@ MANIFEST = ROOT / "vendor" / "manifest.json"
 SCRIPT_ROOT = (ROOT / "vendor" / "scripts").resolve()
 GENERATED = ROOT / "rules" / "generated"
 OWN_RAW_PREFIX = "https://raw.githubusercontent.com/Criogaid/shadowrocket-config/main/"
+DOH_HOSTS = ("dns.quad9.net = 9.9.9.9", "cloudflare-dns.com = 1.1.1.1")
 SCRIPT_PATH = "vendor/scripts/bilibili-ads.js"
 SCRIPT_RUNTIME_COMMIT = "9b925153cffcc243d9e8625f8e8ae43e03d9c410"
 TRIGGER_HOST = "app.bilibili.com"
@@ -125,7 +126,7 @@ def validate_custom(lines: list[str]) -> None:
 
 def validate_config(text: str) -> None:
     parsed = sections(text)
-    for required in ("General", "Rule", "Script", "MITM"):
+    for required in ("General", "Host", "Rule", "Script", "MITM"):
         if len(re.findall(rf"(?m)^\[{re.escape(required)}]$", text)) != 1:
             fail(f"expected exactly one [{required}] section")
     if "Proxy" in parsed or "Proxy Group" in parsed:
@@ -135,6 +136,7 @@ def validate_config(text: str) -> None:
     required_settings = {
         "ipv6 = true", "prefer-ipv6 = false", "private-ip-answer = true",
         "stun-response-ip = 1.1.1.1", "stun-response-ipv6 = ::1", "block-quic = all-proxy",
+        "use-local-host-item-for-proxy = true",
         f"update-url = {OWN_RAW_PREFIX}dist/shadowrocket.conf",
     }
     if missing := sorted(required_settings - set(general)):
@@ -146,6 +148,8 @@ def validate_config(text: str) -> None:
         fail("direct DNS must use AliDNS and DNSPod")
     if "proxy-dns-server = 223.5.5.5,119.29.29.29" not in general:
         fail("proxy DNS must retain domestic bootstrap resolvers")
+    if data_lines(parsed["Host"]) != list(DOH_HOSTS):
+        fail("DoH host mappings must pin Quad9 and Cloudflare to their reviewed anycast IPs")
 
     custom = data_lines((ROOT / "rules" / "custom.list").read_text(encoding="utf-8").splitlines())
     apps = data_lines((ROOT / "rewrites" / "apps.list").read_text(encoding="utf-8").splitlines())
