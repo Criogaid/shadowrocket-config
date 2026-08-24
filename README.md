@@ -14,7 +14,7 @@ https://raw.githubusercontent.com/Criogaid/shadowrocket-config/main/dist/shadowr
 
 ## HTTPS 解密
 
-Bilibili 脚本和应用 URL 规则需要在配置详情中开启 HTTPS 解密，并安装、信任 Shadowrocket 生成的 CA 证书。解密会让 Shadowrocket 读取匹配主机的 HTTPS 内容，应只在理解风险的设备上启用。部分应用存在证书固定，开启后可能无法联网。字节广告规则新增的主机为 `*.byteimg.com`、`*.pangolin-sdk-toutiao.com`、`*.pstatp.com` 与 `gurd.snssdk.com`；前三个是通用内容 CDN 的通配主机，会一并解密书籍封面、图片等非广告流量，带来额外延迟与耗电，若其中任何主机固定证书也会触发本段所述故障。
+Bilibili 脚本和应用 URL 规则需要在配置详情中开启 HTTPS 解密，并安装、信任 Shadowrocket 生成的 CA 证书。解密会让 Shadowrocket 读取匹配主机的 HTTPS 内容，应只在理解风险的设备上启用。部分应用存在证书固定，开启后可能无法联网。字节广告 URL 规则新增的主机为 `*.byteimg.com`、三类 `*.pangolin-sdk-toutiao...`、`*.pstatp.com` 与 `gurd.snssdk.com`；其中 `*.byteimg.com` 与 `*.pstatp.com` 是通用内容 CDN，会一并解密书籍封面、图片等非广告流量，带来额外延迟与耗电。穿山甲主 SDK 域的本地拒绝规则不依赖 HTTPS 解密，只有 `get_ads` 的空 JSON 响应依赖解密。
 
 如果应用异常，先关闭该配置的 HTTPS 解密并重试；普通域名和 IP 路由仍可继续使用。不要为银行、账号、支付或未列入 `[MITM]` 的主机扩大解密范围。验证器要求 `h2 = true` 和精确的主机清单，拒绝额外、重复或扩大后的主机。
 
@@ -56,7 +56,7 @@ DNS 配置按本地 `references/Test.conf` 的职责拆分：主 DNS 使用 AliD
 - Bilibili：仓库内响应脚本移除开屏和推荐流中明确标记的广告。
 - Zhihu、Xiaohongshu：静态广告、推广或水印端点。
 - Douyin、Kuaishou、NetEase Music、QQ Music：静态广告端点。
-- ByteDance 广告网络（穿山甲/巨量）：广告投放请求返回空 JSON，`settings`/`stats` 握手显式放行以避免连接失败，广告素材返回空图，投放包与上报断开。这是字节应用共享的广告基建，未针对任何单个应用验证。
+- ByteDance 广告网络（穿山甲/巨量）：可见的 `get_ads` 请求返回空 JSON，基础、`-b` 与编号 `1` 的主 SDK 域由本地规则整域拒绝，`settings`/`stats`、竞价及未知路径不再显式放行；广告素材返回空图，投放包与上报断开。这是字节应用共享的广告基建，未针对任何单个应用验证。
 - Taobao、JD、Pinduoduo：开屏或广告服务端点。
 - Meituan、Dianping、Eleme：开屏或广告素材端点。
 - Amap、Baidu Maps、Didi：开屏或广告端点。
@@ -64,7 +64,7 @@ DNS 配置按本地 `references/Test.conf` 的职责拆分：主 DNS 使用 AliD
 
 iQIYI 和 Youku 的候选规则会拒绝完整内容或播放响应，不能用 `REJECT-DICT` 安全替代响应转换，因此未启用。Weibo 条目因当前来源记录不能独立追溯而移除。Tencent Video 与 12306 同样未纳入：已审查候选要么依赖未许可代码，要么需要过宽脚本。配置不伪造 VIP/付费状态，不绕过权益，不读取 Cookie/Token/请求正文，不执行签到或账号操作。
 
-字节广告规则有两个已知限制。第一，`.pstatp.com`、`.byteimg.com` 等主机命中生成的直连域名集，而 `block-quic = all-proxy` 只禁用代理流量的 QUIC；应用改用 HTTP/3 时这些 `URL-REGEX` 不会生效，且没有可见提示。第二，`.pangolin-sdk-toutiao.com` 已被生成的拒绝集整域拦截，本节前两条规则依赖自定义规则先于远程规则求值的顺序才能改写该域行为；调整顺序会使其失效。
+字节广告规则仍有一个已知限制：`.pstatp.com`、`.byteimg.com` 等主机命中生成的直连域名集，而 `block-quic = all-proxy` 只禁用代理流量的 QUIC；应用改用 HTTP/3 时这些素材 `URL-REGEX` 不会生效，且没有可见提示。穿山甲主 SDK 域改由本地域名规则拒绝，不受该限制；`get_ads` 无法解密时会降级为整域拒绝，而不是空 JSON 响应。
 
 修改 `rewrites/apps.list` 后必须同步 `vendor/manifest.json` 的 `localSha256` 与 `THIRD_PARTY_NOTICES.md` 的记录，否则 `tools/validate.py` 会失败。
 

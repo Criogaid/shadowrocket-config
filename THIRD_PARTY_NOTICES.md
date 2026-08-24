@@ -21,9 +21,9 @@
 - Reviewed commit: `9069a18f8803a5f6904c4ed234870973605e265a`
 - Upstream SHA-256: `be950bd64086028e7fc092b40ff1b32b809443749ede70406cf0aeedf33ee516`
 - Local derived file: `rewrites/apps.list`
-- Local SHA-256: `fb1086bcf24a1881e931baf968b0c4dd5bc22a665e1e1b3888701e2ab059970e`
-- Review date: 2026-08-23
-- Changes: selected app-scoped static ad, promotion, sponsor, and watermark endpoints and converted them to Shadowrocket syntax. Removed unsupported Weibo entries and iQIYI/Youku rules that rejected full content or playback responses. Added a ByteDance ad-network section derived from the upstream Fanqie Novel, 汽水音乐, and 书旗小说 blocks: pangolin ad delivery on all three delivery domains is answered with an empty JSON object while their `settings`/`stats` handshake is explicitly allowed, and ad material, delivery packages, reporting, and the `dsp.toutiao.com` ad endpoint are rejected. No upstream scripts or unlock rules were copied.
+- Local SHA-256: `33b7315c8e02092437b87fb3553cf9a200cd6a8bd0b5835585e150a7f0bbef20`
+- Review date: 2026-08-24
+- Changes: selected app-scoped static ad, promotion, sponsor, and watermark endpoints and converted them to Shadowrocket syntax. Removed unsupported Weibo entries and iQIYI/Youku rules that rejected full content or playback responses. Added a ByteDance ad-network section derived from the upstream Fanqie Novel, 汽水音乐, and 书旗小说 blocks: visible `get_ads` requests on the three reviewed SDK domain families receive an empty JSON object before those domains are locally rejected, so `settings`, `stats`, bidding, unknown paths, and HTTP/3 fail closed. Ad material, delivery packages, reporting, and the `dsp.toutiao.com` ad endpoint are rejected. No upstream scripts or unlock rules were copied.
 
 ## Loyalsoldier/clash-rules
 

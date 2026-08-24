@@ -3,6 +3,7 @@ from __future__ import annotations
 import io
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import sys
@@ -63,6 +64,16 @@ class ConfigRegressionTests(unittest.TestCase):
             self.assertNotIn(f"DOMAIN-SUFFIX,{domain},", self.text)
         marker = validate.GENERATED_RULES["microsoft"]
         self.assert_rejected(self.text.replace(marker, marker + "\nDOMAIN-SUFFIX,office.net,DIRECT"))
+
+    def test_pangolin_stats_is_locally_rejected_not_direct(self) -> None:
+        target = "https://api-access.pangolin-sdk-toutiao1.com/api/ad/union/sdk/stats/batch/?aid=5000546&version_code=5.6.3.2&device_platform=iphone"
+        apps = validate.data_lines((ROOT / "rewrites" / "apps.list").read_text(encoding="utf-8").splitlines())
+        direct_patterns = [rule.split(",", 2)[1] for rule in apps if rule.startswith("URL-REGEX,") and rule.endswith(",DIRECT")]
+        self.assertFalse(any(re.match(pattern, target) for pattern in direct_patterns))
+        for suffix in ("pangolin-sdk-toutiao-b.com", "pangolin-sdk-toutiao.com", "pangolin-sdk-toutiao1.com"):
+            rule = f"DOMAIN-SUFFIX,{suffix},REJECT"
+            self.assertIn(rule, apps)
+            self.assertLess(self.text.index(rule), self.text.index(validate.GENERATED_RULES["direct"]))
 
     def test_unsafe_full_response_rules_are_absent(self) -> None:
         apps = (ROOT / "rewrites" / "apps.list").read_text(encoding="utf-8")
