@@ -39,3 +39,18 @@ URL-REGEX,^https?://cn-acs\.m\.cainiao\.com/gw/mtop\.cainiao\.guoguo\.nbnetflow\
 URL-REGEX,^https?://ccsp-egmas\.sf-express\.com/cx-app-base/base/app/ad/queryInfoFlow,REJECT-DICT
 URL-REGEX,^https?://ma-adx\.ctrip\.com/_ma\.gif,REJECT
 URL-REGEX,^https?://acs\.m\.taobao\.com/gw/mtop\.fliggy\.crm\.screen\.(allresource|predict),REJECT-DICT
+
+# ByteDance ad network (穿山甲/巨量) — 源自 fmz200/wool_scripts 番茄小说段。
+# 这是共享广告基建，不是某个应用的专属规则；对番茄小说等字节应用同样生效。
+# 顺序敏感：以下两条必须先于生成的 reject.list，因为这三个投放域均已被整域 REJECT。
+# 前置握手 settings/stats 必须放行，否则 SDK 收到连接失败而非 no-fill 空响应。
+URL-REGEX,^https?://[^/]+\.pangolin-sdk-toutiao(-b|1)?\.com/api/ad/union/sdk/(settings|stats)/,DIRECT
+URL-REGEX,^https?://[^/]+\.pangolin-sdk-toutiao(-b|1)?\.com/api/ad/union/sdk/get_ads/?,REJECT-DICT
+# 广告素材图片返回空图；投放包与上报断开连接。
+URL-REGEX,^https?://[^/]+\.pstatp\.com/(obj|img)/(ad|web\.business\.image)/,REJECT-IMG
+URL-REGEX,^https?://[^/]+\.pstatp\.com/obj/ad-pattern/renderer,REJECT-IMG
+URL-REGEX,^https?://[^/]+\.byteimg\.com/web\.business\.image,REJECT-IMG
+URL-REGEX,^https?://[^/]+\.(pstatp|byteimg)\.com/(obj/|img/)?ad-app-package,REJECT
+URL-REGEX,^https?://[^/]+\.pstatp\.com/bytecom/resource/track_log/src/,REJECT
+URL-REGEX,^https?://gurd\.snssdk\.com/src/server/v3/package,REJECT
+URL-REGEX,^https?://dsp\.toutiao\.com/api/xunfei/ads/,REJECT-200

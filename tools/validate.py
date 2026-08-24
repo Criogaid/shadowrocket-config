@@ -67,14 +67,16 @@ HANDWRITTEN_SERVICE_SUFFIXES = {
     "live.net", "outlook.com", "sharepoint.com", "sharepointonline.com", "windows.net",
 }
 MITM_HOSTS = (
-    "*.amemv.com", "acs.m.taobao.com", "api.m.jd.com", "api.pinduoduo.com",
+    "*.amemv.com", "*.byteimg.com", "*.pangolin-sdk-toutiao-b.com",
+    "*.pangolin-sdk-toutiao.com", "*.pangolin-sdk-toutiao1.com", "*.pstatp.com",
+    "acs.m.taobao.com", "api.m.jd.com", "api.pinduoduo.com",
     "api.yangkeduo.com", "api.zhihu.com", "app.bilibili.com", "az2-api.ksapisrv.com",
     "bdsp-x.jd.com", "ccsp-egmas.sf-express.com", "ci.xiaohongshu.com",
-    "cn-acs.m.cainiao.com", "dsp-x.jd.com", "elemecdn.com", "guide-acs.m.taobao.com",
-    "hd.xiaojukeji.com", "interface.music.163.com", "interface3.music.163.com",
-    "ipv4.music.163.com", "m5.amap.com", "ma-adx.ctrip.com", "mapi.dianping.com",
-    "newclient.map.baidu.com", "optimus-ads.amap.com", "wmapi.meituan.com",
-    "www.xiaohongshu.com", "y.gtimg.cn",
+    "cn-acs.m.cainiao.com", "dsp-x.jd.com", "dsp.toutiao.com", "elemecdn.com",
+    "guide-acs.m.taobao.com", "gurd.snssdk.com", "hd.xiaojukeji.com",
+    "interface.music.163.com", "interface3.music.163.com", "ipv4.music.163.com",
+    "m5.amap.com", "ma-adx.ctrip.com", "mapi.dianping.com", "newclient.map.baidu.com",
+    "optimus-ads.amap.com", "wmapi.meituan.com", "www.xiaohongshu.com", "y.gtimg.cn",
 )
 CHECKOUT = "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1"
 FORBIDDEN_SCRIPT_PATTERNS = {
@@ -186,6 +188,58 @@ def validate_config(text: str) -> None:
         fail("Script declaration differs from the reviewed manifest binding")
     if data_lines(parsed["MITM"]) != ["h2 = true", f"hostname = {','.join(MITM_HOSTS)}"]:
         fail("MITM must use exact h2 and approved hostname inventory")
+    validate_mitm_scope(apps)
+
+
+HOST_PREFIX_RE = re.compile(r"\^https(?:\?)?://(.+?)(?:/|$)")
+
+
+def _expand_alternations(expression: str) -> list[str]:
+    match = re.search(r"\(([^()]*)\)(\?)?", expression)
+    if not match:
+        return [expression]
+    head, tail = expression[:match.start()], expression[match.end():]
+    options = match.group(1).split("|")
+    if match.group(2):
+        options.append("")
+    return [result for option in options for result in _expand_alternations(head + option + tail)]
+
+
+def _regex_hosts(pattern: str) -> list[str]:
+    """Return the concrete host expressions a URL regex can match, as MITM-style globs."""
+    match = HOST_PREFIX_RE.match(pattern.replace("[^/]+", "*"))
+    if not match:
+        fail(f"URL rule must anchor an explicit scheme and host: {pattern}")
+    hosts = []
+    for expanded in _expand_alternations(match.group(1)):
+        host = expanded.replace("\\.", ".")
+        if not DOMAIN_RE.fullmatch(host.removeprefix("*.")):
+            fail(f"URL rule host is not a plain domain or wildcard: {pattern}")
+        hosts.append(host)
+    return hosts
+
+
+def _mitm_covers(mitm: str, host: str) -> bool:
+    if mitm == host:
+        return True
+    if not mitm.startswith("*."):
+        return False
+    return host.removeprefix("*.").endswith(mitm[1:])
+
+
+def validate_mitm_scope(app_rules: list[str]) -> None:
+    """Tie every MITM host to a rule that needs it, and forbid redundant or broader entries."""
+    patterns = [rule.split(",", 2)[1] for rule in app_rules if rule.startswith("URL-REGEX,")]
+    patterns.append(SCRIPT_LINE.split("pattern=", 1)[1].split(",", 1)[0])
+    required = [host for pattern in patterns for host in _regex_hosts(pattern)]
+    for host in required:
+        if not any(_mitm_covers(mitm, host) for mitm in MITM_HOSTS):
+            fail(f"MITM inventory does not cover a decrypted rule host: {host}")
+    for mitm in MITM_HOSTS:
+        if not any(_mitm_covers(mitm, host) for host in required):
+            fail(f"MITM host is not required by any rule: {mitm}")
+        if any(other != mitm and _mitm_covers(other, mitm) for other in MITM_HOSTS):
+            fail(f"MITM host is already covered by a broader entry: {mitm}")
 
 
 def _rule_set_covers(records: list[str], target: str) -> bool:
@@ -310,6 +364,7 @@ def validate_generated() -> None:
 
 def validate_vendor() -> None:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    notices = (ROOT / "THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8")
     entries = manifest.get("scripts")
     if manifest.get("schemaVersion") != 1 or not isinstance(entries, list):
         fail("invalid vendor manifest schema")
@@ -373,6 +428,8 @@ def validate_vendor() -> None:
             fail(f"invalid derived commit metadata: {entry['path']}")
         if hashlib.sha256(path.read_bytes()).hexdigest() != entry["localSha256"]:
             fail(f"derived source local hash mismatch: {entry['path']}")
+        if entry["localSha256"] not in notices or entry["reviewedAt"] not in notices:
+            fail(f"attribution notice is out of sync with the manifest: {entry['path']}")
 
 
 def validate_workflows() -> None:

@@ -85,6 +85,31 @@ class ConfigRegressionTests(unittest.TestCase):
         self.assertEqual(validate.data_lines(validate.sections(self.text)["Script"]), [validate.SCRIPT_LINE])
         self.assert_rejected(self.text.replace("feed/index)(?:\\?|$)", "feed/index-old)"))
 
+    def test_mitm_hosts_must_be_required_by_a_rule_and_minimal(self) -> None:
+        apps = validate.data_lines((ROOT / "rewrites" / "apps.list").read_text(encoding="utf-8").splitlines())
+        validate.validate_mitm_scope(apps)
+        for broken in (
+            validate.MITM_HOSTS + ("unused.example.com",),
+            validate.MITM_HOSTS + ("*.snssdk.com",),
+            tuple(host for host in validate.MITM_HOSTS if host != "*.pstatp.com"),
+        ):
+            with self.subTest(hosts=broken[-1]), mock.patch.object(validate, "MITM_HOSTS", broken):
+                with self.assertRaises(ValueError):
+                    validate.validate_mitm_scope(apps)
+
+    def test_attribution_notice_must_match_the_manifest(self) -> None:
+        notices = ROOT / "THIRD_PARTY_NOTICES.md"
+        original = notices.read_text(encoding="utf-8")
+        manifest = json.loads((ROOT / "vendor" / "manifest.json").read_text(encoding="utf-8"))
+        digest = manifest["derivedSources"][0]["localSha256"]
+        self.assertIn(digest, original)
+        try:
+            notices.write_text(original.replace(digest, "0" * 64), encoding="utf-8", newline="\n")
+            with self.assertRaises(ValueError):
+                validate.validate_vendor()
+        finally:
+            notices.write_text(original, encoding="utf-8", newline="\n")
+
 
 class WorkflowRegressionTests(unittest.TestCase):
     def test_yaml_extension_is_inspected_and_rejected_as_extra(self) -> None:

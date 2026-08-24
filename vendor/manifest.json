@@ -26,10 +26,10 @@
       "reviewedCommit": "9069a18f8803a5f6904c4ed234870973605e265a",
       "availableCommit": "9069a18f8803a5f6904c4ed234870973605e265a",
       "upstreamSha256": "be950bd64086028e7fc092b40ff1b32b809443749ede70406cf0aeedf33ee516",
-      "localSha256": "ed16b4e4853299790b03d495f575303d940e695e40bf6f283a8bd21116b91cf9",
+      "localSha256": "fb1086bcf24a1881e931baf968b0c4dd5bc22a665e1e1b3888701e2ab059970e",
       "spdx": "GPL-3.0-only",
-      "reviewedAt": "2026-08-17",
-      "modifications": "Selected app-scoped static ad, promotion, sponsor, and watermark endpoints and converted them to Shadowrocket syntax; removed unsupported Weibo and unsafe full-response iQIYI/Youku rules; copied no upstream scripts or unlock rules."
+      "reviewedAt": "2026-08-23",
+      "modifications": "Selected app-scoped static ad, promotion, sponsor, and watermark endpoints and converted them to Shadowrocket syntax; removed unsupported Weibo and unsafe full-response iQIYI/Youku rules; added a ByteDance ad-network section derived from the upstream Fanqie Novel, 汽水音乐, and 书旗小说 blocks, answering pangolin ad delivery on all three delivery domains with an empty JSON object while explicitly allowing their settings/stats handshake, and rejecting ad material, delivery packages, reporting, and the dsp.toutiao.com ad endpoint; copied no upstream scripts or unlock rules."
     }
   ]
 }
