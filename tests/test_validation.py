@@ -65,13 +65,13 @@ class ConfigRegressionTests(unittest.TestCase):
         marker = validate.GENERATED_RULES["microsoft"]
         self.assert_rejected(self.text.replace(marker, marker + "\nDOMAIN-SUFFIX,office.net,DIRECT"))
 
-    def test_pangolin_stats_is_locally_rejected_not_direct(self) -> None:
+    def test_pangolin_stats_is_intercepted_not_direct(self) -> None:
         target = "https://api-access.pangolin-sdk-toutiao1.com/api/ad/union/sdk/stats/batch/?aid=5000546&version_code=5.6.3.2&device_platform=iphone"
         apps = validate.data_lines((ROOT / "rewrites" / "apps.list").read_text(encoding="utf-8").splitlines())
         direct_patterns = [rule.split(",", 2)[1] for rule in apps if rule.startswith("URL-REGEX,") and rule.endswith(",DIRECT")]
         self.assertFalse(any(re.match(pattern, target) for pattern in direct_patterns))
         for suffix in ("pangolin-sdk-toutiao-b.com", "pangolin-sdk-toutiao.com", "pangolin-sdk-toutiao1.com"):
-            rule = f"DOMAIN-SUFFIX,{suffix},REJECT"
+            rule = f"DOMAIN-SUFFIX,{suffix},REJECT-200"
             self.assertIn(rule, apps)
             self.assertLess(self.text.index(rule), self.text.index(validate.GENERATED_RULES["direct"]))
 

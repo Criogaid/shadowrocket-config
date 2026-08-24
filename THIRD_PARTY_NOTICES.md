@@ -21,9 +21,9 @@
 - Reviewed commit: `9069a18f8803a5f6904c4ed234870973605e265a`
 - Upstream SHA-256: `be950bd64086028e7fc092b40ff1b32b809443749ede70406cf0aeedf33ee516`
 - Local derived file: `rewrites/apps.list`
-- Local SHA-256: `33b7315c8e02092437b87fb3553cf9a200cd6a8bd0b5835585e150a7f0bbef20`
+- Local SHA-256: `ff35cc7b0de0b5919ed7793780fb0d82d57060f7e56afea986272d240e22a267`
 - Review date: 2026-08-24
-- Changes: selected app-scoped static ad, promotion, sponsor, and watermark endpoints and converted them to Shadowrocket syntax. Removed unsupported Weibo entries and iQIYI/Youku rules that rejected full content or playback responses. Added a ByteDance ad-network section derived from the upstream Fanqie Novel, 汽水音乐, and 书旗小说 blocks: visible `get_ads` requests on the three reviewed SDK domain families receive an empty JSON object before those domains are locally rejected, so `settings`, `stats`, bidding, unknown paths, and HTTP/3 fail closed. Ad material, delivery packages, reporting, and the `dsp.toutiao.com` ad endpoint are rejected. No upstream scripts or unlock rules were copied.
+- Changes: selected app-scoped static ad, promotion, sponsor, and watermark endpoints and converted them to Shadowrocket syntax. Removed unsupported Weibo entries and iQIYI/Youku rules that rejected full content or playback responses. Added a ByteDance ad-network section derived from the upstream Fanqie Novel, 汽水音乐, and 书旗小说 blocks: visible `get_ads` requests on the three reviewed SDK domain families receive an empty JSON object before those domains use `REJECT-200`, so `settings`, `stats`, bidding, unknown paths, and HTTP/3 are intercepted instead of `DIRECT`. Ad material, delivery packages, reporting, and the `dsp.toutiao.com` ad endpoint are rejected. No upstream scripts or unlock rules were copied.
 
 ## Loyalsoldier/clash-rules
 

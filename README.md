@@ -56,7 +56,7 @@ DNS 配置按本地 `references/Test.conf` 的职责拆分：主 DNS 使用 AliD
 - Bilibili：仓库内响应脚本移除开屏和推荐流中明确标记的广告。
 - Zhihu、Xiaohongshu：静态广告、推广或水印端点。
 - Douyin、Kuaishou、NetEase Music、QQ Music：静态广告端点。
-- ByteDance 广告网络（穿山甲/巨量）：可见的 `get_ads` 请求返回空 JSON，基础、`-b` 与编号 `1` 的主 SDK 域由本地规则整域拒绝，`settings`/`stats`、竞价及未知路径不再显式放行；广告素材返回空图，投放包与上报断开。这是字节应用共享的广告基建，未针对任何单个应用验证。
+- ByteDance 广告网络（穿山甲/巨量）：可见的 `get_ads` 请求返回空 JSON，基础、`-b` 与编号 `1` 的主 SDK 域使用本地 `REJECT-200`，`settings`/`stats`、竞价及未知路径不再显式放行；广告素材返回空图，投放包与上报断开。这是字节应用共享的广告基建，未针对任何单个应用验证。
 - Taobao、JD、Pinduoduo：开屏或广告服务端点。
 - Meituan、Dianping、Eleme：开屏或广告素材端点。
 - Amap、Baidu Maps、Didi：开屏或广告端点。
@@ -64,7 +64,7 @@ DNS 配置按本地 `references/Test.conf` 的职责拆分：主 DNS 使用 AliD
 
 iQIYI 和 Youku 的候选规则会拒绝完整内容或播放响应，不能用 `REJECT-DICT` 安全替代响应转换，因此未启用。Weibo 条目因当前来源记录不能独立追溯而移除。Tencent Video 与 12306 同样未纳入：已审查候选要么依赖未许可代码，要么需要过宽脚本。配置不伪造 VIP/付费状态，不绕过权益，不读取 Cookie/Token/请求正文，不执行签到或账号操作。
 
-字节广告规则仍有一个已知限制：`.pstatp.com`、`.byteimg.com` 等主机命中生成的直连域名集，而 `block-quic = all-proxy` 只禁用代理流量的 QUIC；应用改用 HTTP/3 时这些素材 `URL-REGEX` 不会生效，且没有可见提示。穿山甲主 SDK 域改由本地域名规则拒绝，不受该限制；`get_ads` 无法解密时会降级为整域拒绝，而不是空 JSON 响应。
+字节广告规则仍有一个已知限制：`.pstatp.com`、`.byteimg.com` 等主机命中生成的直连域名集，而 `block-quic = all-proxy` 只禁用代理流量的 QUIC；应用改用 HTTP/3 时这些素材 `URL-REGEX` 不会生效，且没有可见提示。穿山甲主 SDK 域改由本地 `REJECT-200` 规则处理，不受该直连限制；`get_ads` 无法解密时会降级为域名策略。Shadowrocket 文档没有明确未 MITM 的 HTTPS 请求会在客户端呈现何种 `REJECT-200` 实际响应。
 
 修改 `rewrites/apps.list` 后必须同步 `vendor/manifest.json` 的 `localSha256` 与 `THIRD_PARTY_NOTICES.md` 的记录，否则 `tools/validate.py` 会失败。
 

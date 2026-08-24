@@ -26,10 +26,10 @@
       "reviewedCommit": "9069a18f8803a5f6904c4ed234870973605e265a",
       "availableCommit": "9069a18f8803a5f6904c4ed234870973605e265a",
       "upstreamSha256": "be950bd64086028e7fc092b40ff1b32b809443749ede70406cf0aeedf33ee516",
-      "localSha256": "33b7315c8e02092437b87fb3553cf9a200cd6a8bd0b5835585e150a7f0bbef20",
+      "localSha256": "ff35cc7b0de0b5919ed7793780fb0d82d57060f7e56afea986272d240e22a267",
       "spdx": "GPL-3.0-only",
       "reviewedAt": "2026-08-24",
-      "modifications": "Selected app-scoped static ad, promotion, sponsor, and watermark endpoints and converted them to Shadowrocket syntax; removed unsupported Weibo and unsafe full-response iQIYI/Youku rules; added a ByteDance ad-network section derived from the upstream Fanqie Novel, 汽水音乐, and 书旗小说 blocks, answering visible get_ads requests on the three reviewed SDK domain families with an empty JSON object before locally rejecting those domains so settings, stats, bidding, unknown paths, and HTTP/3 fail closed; rejected ad material, delivery packages, reporting, and the dsp.toutiao.com ad endpoint; copied no upstream scripts or unlock rules."
+      "modifications": "Selected app-scoped static ad, promotion, sponsor, and watermark endpoints and converted them to Shadowrocket syntax; removed unsupported Weibo and unsafe full-response iQIYI/Youku rules; added a ByteDance ad-network section derived from the upstream Fanqie Novel, 汽水音乐, and 书旗小说 blocks, answering visible get_ads requests on the three reviewed SDK domain families with an empty JSON object before applying REJECT-200 to those domains so settings, stats, bidding, unknown paths, and HTTP/3 are intercepted instead of DIRECT; rejected ad material, delivery packages, reporting, and the dsp.toutiao.com ad endpoint; copied no upstream scripts or unlock rules."
     }
   ]
 }
