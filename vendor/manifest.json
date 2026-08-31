@@ -24,7 +24,7 @@
       "upstreamRepo": "fmz200/wool_scripts",
       "upstreamPath": "QuantumultX/rewrite/rewrite.snippet",
       "reviewedCommit": "9069a18f8803a5f6904c4ed234870973605e265a",
-      "availableCommit": "9069a18f8803a5f6904c4ed234870973605e265a",
+      "availableCommit": "2164c79f72e5d50d4410b8267be2e8fec9367fac",
       "upstreamSha256": "be950bd64086028e7fc092b40ff1b32b809443749ede70406cf0aeedf33ee516",
       "localSha256": "ff35cc7b0de0b5919ed7793780fb0d82d57060f7e56afea986272d240e22a267",
       "spdx": "GPL-3.0-only",
