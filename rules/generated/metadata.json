@@ -5,13 +5,13 @@
       "id": "clash-rules",
       "repo": "Loyalsoldier/clash-rules",
       "branch": "release",
-      "commit": "bfa77fb0987d2ab0d56b5b01b3fa36515a57326c"
+      "commit": "46df4bf4d407ecb8c8884ad3f5b2aa5d465dd988"
     },
     {
       "id": "sing-geosite",
       "repo": "SagerNet/sing-geosite",
       "branch": "rule-set",
-      "commit": "56bbf6a9ce7ea1ad8b5f3cccde1a60a7531a9ebc"
+      "commit": "2188cad8cff230c36953175811304957e6d04326"
     }
   ],
   "tool": {
@@ -41,7 +41,7 @@
       "sourcePath": "reject.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/reject.txt",
       "sourceSha256": "b73ebd38344d525974d9b6fdedca50f59631ad4e5fe694b7aa5ef5692b879271",
-      "outputSha256": "0c46dfb9193d20a5b9c1468ff772c6b497c28e8673efb5a19ae2a7dd410c9aee",
+      "outputSha256": "77e0778df0a12c6422abbc9dadf935210011258297f5065fd4e217c6be4af1c2",
       "recordCount": 188242
     },
     {
@@ -51,7 +51,7 @@
       "sourcePath": "direct.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/direct.txt",
       "sourceSha256": "206654921e5364e33eacd864aa3f2de9e6a66e2d99e2b29026d7919856a27fa7",
-      "outputSha256": "1ac1e75924bd7da60cb5ba234ddb36acb29968101ba824e18151c56d001665d5",
+      "outputSha256": "6bc11f9e60f1f61fbc1b2693eeb7fbe2182102d9afb28024d371d4179e4153be",
       "recordCount": 111160
     },
     {
@@ -61,7 +61,7 @@
       "sourcePath": "proxy.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/proxy.txt",
       "sourceSha256": "1a28a3240276caabddc5292d10131a670622d19e8173ab6efc1ca70a15bc585d",
-      "outputSha256": "8534aab8ede9d3faa83158fd864c55560af0ed52ee667d5d95ef261d185ee63f",
+      "outputSha256": "c0e433ca3c38de58fcafebeae792575a233ad46e4355c1122ca6817c9effd544",
       "recordCount": 27088
     },
     {
@@ -71,7 +71,7 @@
       "sourcePath": "private.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/private.txt",
       "sourceSha256": "3a04b128200ef8097d73b1496cbb23d24bc1e05d42fffb09f07c51699efb00b2",
-      "outputSha256": "0a9fae757053344b948925e49777e8f850750683b4607b6e9dae87d76748a7ad",
+      "outputSha256": "f0a0d969609eb9cf3ea979134780c5d66221d152d300a35a1ecf8ab1e7ee034e",
       "recordCount": 130
     },
     {
@@ -81,7 +81,7 @@
       "sourcePath": "geosite-github.srs",
       "sourceUrl": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-github.srs",
       "sourceSha256": "283a3ab91220ddcefd2aa1ac7174d4147f50e02f8cb9838db1f94e0e103a7449",
-      "outputSha256": "8a48e55877073a63947c9754abcb5f2d0b9d9ff3e8177f065543e149596834d2",
+      "outputSha256": "b2a19070638616d646751ed5f51c1d41162b820d3b87f12648319b28f1cfbcd6",
       "recordCount": 62
     },
     {
@@ -91,7 +91,7 @@
       "sourcePath": "geosite-apple.srs",
       "sourceUrl": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-apple.srs",
       "sourceSha256": "9418454daa0f7f9935576ecf4270110621253382cbde6cd2b7bd96011f3b4463",
-      "outputSha256": "c131759b84117a96f67da20602ec13a8a339e6ab782b917ee95ff0bc1f98a86b",
+      "outputSha256": "c076d0b89133ad53bbeab511b05ac4b757441c595a75fbbc407de82f277cc3f5",
       "recordCount": 1784
     },
     {
@@ -101,7 +101,7 @@
       "sourcePath": "geosite-icloud.srs",
       "sourceUrl": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-icloud.srs",
       "sourceSha256": "858490ee14f2af1c822d559f5a933c54ae818c08bf210e0db9ec7eacb667265b",
-      "outputSha256": "2bf699e1dd758e6891d64ede3877c24dc22c61c278881e94e44af41f9bf39f42",
+      "outputSha256": "b8f9300b16485fe8c5ceafd6098a13369d0dfcac99b6d0c73eea8256cf0f7094",
       "recordCount": 53
     },
     {
@@ -111,7 +111,7 @@
       "sourcePath": "geosite-microsoft.srs",
       "sourceUrl": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-microsoft.srs",
       "sourceSha256": "bf383833653f340f343e7eeec95d96d19af0cd2c3d3747bf4bd9065d79590f8e",
-      "outputSha256": "f130753cc873eaf16b68eacb00114e52016a06d0cdc441ca6d0caf0e4e42038a",
+      "outputSha256": "21a3fb7031ffb834c1c09ccd1b8748169f555d1e73c9b53af629ac956bc4cff4",
       "recordCount": 704
     }
   ]
