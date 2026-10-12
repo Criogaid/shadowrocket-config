@@ -5,7 +5,7 @@
       "id": "clash-rules",
       "repo": "Loyalsoldier/clash-rules",
       "branch": "release",
-      "commit": "95e5d6a50402b221b277e0752626cdbd9b84a528"
+      "commit": "9fed72c9b7e2fb19618e3ad46a0dc69e400148ab"
     },
     {
       "id": "sing-geosite",
@@ -40,9 +40,9 @@
       "sourceId": "clash-rules",
       "sourcePath": "reject.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/reject.txt",
-      "sourceSha256": "9ebb5855708d946063ba32d73d7c421bb392960e66cb2ca9f1c6c17df6011f1a",
-      "outputSha256": "c13460ac23b304170631725c7155c61faa824e79fbf387b62f677f05e3a9a6ea",
-      "recordCount": 190942
+      "sourceSha256": "3a66f2b83665dffc11b4aabbe5e40a2cd075a8aa78ac6991c15334ff8caa2bce",
+      "outputSha256": "a379dbd4ea71c544c534b34cbdd1651f285b9f2eadd5634c1da22508463b0e4a",
+      "recordCount": 191252
     },
     {
       "name": "direct",
@@ -50,9 +50,9 @@
       "sourceId": "clash-rules",
       "sourcePath": "direct.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/direct.txt",
-      "sourceSha256": "6ecbfd74ab9682c1c9bf511fa0f734535514548a35e882bbf716cdb46e30ada1",
-      "outputSha256": "c1ac6b42cf1a88b923867c91e34b0e880266a701a1294b41d2253859961a31d8",
-      "recordCount": 111724
+      "sourceSha256": "c91a00128a071c6a3fa94c11cf7448ed1552a691e84ffb30a43b5838b9e39abc",
+      "outputSha256": "961b3ff07a264ef3d9535a134347c79beb5d27ab8a1691ea41f6d92bca50fd08",
+      "recordCount": 110924
     },
     {
       "name": "proxy",
@@ -61,7 +61,7 @@
       "sourcePath": "proxy.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/proxy.txt",
       "sourceSha256": "52b3d688fee0baccf4e38513fc0e1fbf8fff26e01e4d728bf7d7614522795763",
-      "outputSha256": "9405258e07ebe88adaccb8bdcfb2229e736469e240081dfd3cf7c18a87700d42",
+      "outputSha256": "de0c7f555a19745eba4c42eef3503e49e7b34d3e3009fd4b0075beaa53715a59",
       "recordCount": 27233
     },
     {
@@ -71,7 +71,7 @@
       "sourcePath": "private.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/private.txt",
       "sourceSha256": "3a04b128200ef8097d73b1496cbb23d24bc1e05d42fffb09f07c51699efb00b2",
-      "outputSha256": "15f60e6c4016662f3acc8ac5ce78bf6bc242a61cd86ad060bca0c1c782402116",
+      "outputSha256": "2486270de6ef32aba8def5590517ceb515a7e4a70c923af6e4de1cab51b40fa3",
       "recordCount": 130
     },
     {
