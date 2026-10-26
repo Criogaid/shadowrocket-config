@@ -5,7 +5,7 @@
       "id": "clash-rules",
       "repo": "Loyalsoldier/clash-rules",
       "branch": "release",
-      "commit": "626486e13aea8158bbe52a7f900e3af86015f49f"
+      "commit": "7d33ae72d67a2d3197f25fc6309a6a5809b60193"
     },
     {
       "id": "sing-geosite",
@@ -41,7 +41,7 @@
       "sourcePath": "reject.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/reject.txt",
       "sourceSha256": "f3d0ed4d2bcaec82dc3f660427789cffa16703f6ec9da9ac35f380de10f43a1c",
-      "outputSha256": "18d1e5ce423656d4b99a40ebf39b9b318bac0159907e94fb1ed54d86240807a5",
+      "outputSha256": "d5f35ee050fc01fccd84db70637e5af5481a4da744f59f5606e4875e6d8cb5be",
       "recordCount": 200546
     },
     {
@@ -51,7 +51,7 @@
       "sourcePath": "direct.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/direct.txt",
       "sourceSha256": "5b193df91a8c4cd56d67f7a749b4fa2f48c42c647d49d72612b2206f75fb4fa5",
-      "outputSha256": "ad7a70b33abac69b9282daa3a2d491801657069f95b69db55ed6f869dd831eff",
+      "outputSha256": "de4959531b9efef9045022d90716cdd63421362bd6bcc9012a3a81e6df674113",
       "recordCount": 110241
     },
     {
@@ -61,7 +61,7 @@
       "sourcePath": "proxy.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/proxy.txt",
       "sourceSha256": "27fe308c9421d18e9d66c6598e8dbd34c3362fa3ffccd105e8106841b08f1ddb",
-      "outputSha256": "33c7d7642cb57c7a465b52fbfc39ab37a1f81f5a13a862f8877994849e18c737",
+      "outputSha256": "5772c1ccfd4b53b15c7c8e3afc5d9dcda2e867753ed45e62456a312e3e811636",
       "recordCount": 27317
     },
     {
@@ -71,7 +71,7 @@
       "sourcePath": "private.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/private.txt",
       "sourceSha256": "49972ad557345dd1abe94a62892f06cbc5b4cef12bf8d7ac5beca454b5de9088",
-      "outputSha256": "c39802595e2e492d3a286f58e5f3ef0413a2feb5f340917d1c870519faff6fde",
+      "outputSha256": "d556df65cfbbe0306d70bf774dc69f828928212c2fbfac44e8f480986c9abe34",
       "recordCount": 132
     },
     {
