@@ -5,13 +5,13 @@
       "id": "clash-rules",
       "repo": "Loyalsoldier/clash-rules",
       "branch": "release",
-      "commit": "683fdadefbc70dcf58f235a9d4977c9adf1a1bfd"
+      "commit": "66f8e867637d5ddc1e53ea9c3207e71431a2e22b"
     },
     {
       "id": "sing-geosite",
       "repo": "SagerNet/sing-geosite",
       "branch": "rule-set",
-      "commit": "5f1ea8a78bb6836c4aafefe1166148cd9f686f04"
+      "commit": "91a34585bbd5e7025ee0eecaceb770616fac3c00"
     }
   ],
   "tool": {
@@ -40,9 +40,9 @@
       "sourceId": "clash-rules",
       "sourcePath": "reject.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/reject.txt",
-      "sourceSha256": "a708c244e359ae8cf11a69a9e26f2b6f8b99b8d71e35bd40b7453cf093c6f4dc",
-      "outputSha256": "0558ae21a624b29a25d1e9f869c1d5e0be0ccf2a3e46959d47cd70ea9b836f79",
-      "recordCount": 196993
+      "sourceSha256": "73e525a0a3120a786e4436fb398479b202d1b018f91ea106ecd94bb8356053b0",
+      "outputSha256": "fd1732888912f2b8a8a7bebfdc8a078d31bfd8e5a46f39a713cfa1f2a7376152",
+      "recordCount": 197239
     },
     {
       "name": "direct",
@@ -51,7 +51,7 @@
       "sourcePath": "direct.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/direct.txt",
       "sourceSha256": "2ff0b806e1ba3f302ea14f2297230eb46bfb279412748db5c31cf6593013a5f3",
-      "outputSha256": "6fd30b19ef803d1e7a2d51d6183fd8bc7521427949a5d44bf33eb1e8ac5c2016",
+      "outputSha256": "6c69b1e8a90c108126a62f1ce3e37401046a38abaee2be89a56070f70a23d3fa",
       "recordCount": 110189
     },
     {
@@ -60,9 +60,9 @@
       "sourceId": "clash-rules",
       "sourcePath": "proxy.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/proxy.txt",
-      "sourceSha256": "4aabeed0323290885a4e6741be8f1856aeac0d1e4537e2cb5eaf01f10e6efadf",
-      "outputSha256": "a4656aeb9a87e4d04af3b6c94f5b3d928e58ed569c8bee027bf9b4aa6d57bb9b",
-      "recordCount": 27335
+      "sourceSha256": "7fce84d147b2774dc4f1abfe3ccb28bbca3c74cff2d2674b0335210d91606b41",
+      "outputSha256": "586a255ee1c947b7f5d08d75ba3fcba1c523451015087808cf2eae1b43c06573",
+      "recordCount": 27337
     },
     {
       "name": "private",
@@ -71,7 +71,7 @@
       "sourcePath": "private.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/private.txt",
       "sourceSha256": "49972ad557345dd1abe94a62892f06cbc5b4cef12bf8d7ac5beca454b5de9088",
-      "outputSha256": "2e90b2e7b9bfdf763cb71b444b6975bf89415baa0649ace6a99c9228e0165cf5",
+      "outputSha256": "1be7ec30af33377777b9529e2b8460592b4f5c658f62638acf63228e48943d36",
       "recordCount": 132
     },
     {
@@ -81,7 +81,7 @@
       "sourcePath": "geosite-github.srs",
       "sourceUrl": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-github.srs",
       "sourceSha256": "f727731c48cc98f6056de4a39c6a925ba6bb4d5baef66f8efb4392a20ba1c55a",
-      "outputSha256": "cbddb1b5ca413f8d13601f9b1175c92d1b129faf52ca62191a31c98ab902c0fd",
+      "outputSha256": "139ea8c15091f843a74fe46e6fcaee44e5f55a9ce074a5afa43ef0ac828ce620",
       "recordCount": 63
     },
     {
@@ -91,7 +91,7 @@
       "sourcePath": "geosite-apple.srs",
       "sourceUrl": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-apple.srs",
       "sourceSha256": "f6465748701e64c03cf23be86c09a877f82dea235f059194bd89b8a4d00b98bc",
-      "outputSha256": "73b868e8f2e3000e3f534ecbc87172e5a3d49714fab91b8d2df396200aec6f78",
+      "outputSha256": "13d115f8ff27fbd0b2f50872b0a2a5249fffc19b796df00f978ce0400d00735c",
       "recordCount": 1785
     },
     {
@@ -101,7 +101,7 @@
       "sourcePath": "geosite-icloud.srs",
       "sourceUrl": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-icloud.srs",
       "sourceSha256": "9b44fac6eb432440863e4a2d3fe0e617e92645e9896dd03d8739ee7ec8640211",
-      "outputSha256": "248f0ac71746591452918878e3ed6db304851562551b050027370014163a15f5",
+      "outputSha256": "88564485c182d7f3dfa627d08d496bd46f8ed1e1e8b0d6998da6343795f5f975",
       "recordCount": 52
     },
     {
@@ -111,7 +111,7 @@
       "sourcePath": "geosite-microsoft.srs",
       "sourceUrl": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-microsoft.srs",
       "sourceSha256": "7827c1d3394074fbfa60ee19b2471a8f88471bf5ff80ac8c420847de5a1174a3",
-      "outputSha256": "290803b9b0fb2dd159bb570bcb8e141ea5c0ead10b8ef6a2191e50eeb2794b0f",
+      "outputSha256": "4c18cb256d231be0f4752a616832f58a5d0bb4bcc1867b1a67a653bb5c838d3a",
       "recordCount": 712
     }
   ]
