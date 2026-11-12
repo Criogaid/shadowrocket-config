@@ -5,7 +5,7 @@
       "id": "clash-rules",
       "repo": "Loyalsoldier/clash-rules",
       "branch": "release",
-      "commit": "4eb2e7d80e485d7cfadcf855ec875e44e621d261"
+      "commit": "481323e105230c87a202a30621fc6ecbbf8b1fe9"
     },
     {
       "id": "sing-geosite",
@@ -40,9 +40,9 @@
       "sourceId": "clash-rules",
       "sourcePath": "reject.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/reject.txt",
-      "sourceSha256": "c86209e42260dafab2ae06c2eff460b5640f7b2c3141f09b78cf1cc03b66361d",
-      "outputSha256": "4599c9b5e0f0527402cc6ca167dbc08c5ff1c557f84cd52f4d6e036bbf32f144",
-      "recordCount": 197596
+      "sourceSha256": "d4754917a6b74f45be54a05824a5f58a487e30ba7c832bcaf87ea40032069238",
+      "outputSha256": "b3c4de4f1cd1bb276c71bc922d97a86c5b114c0e61547451a4b6c713893cde13",
+      "recordCount": 199528
     },
     {
       "name": "direct",
@@ -51,7 +51,7 @@
       "sourcePath": "direct.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/direct.txt",
       "sourceSha256": "de93e1e3f151fe444e6c89758b1caf93b38cd9913a2834dcb131d8be2df54bb3",
-      "outputSha256": "2ae5859bbd76e45efffc9a43a28b2ffb569397ca05aac4b0fbc83ed8adfd4c27",
+      "outputSha256": "5558d8d3448a54e54b4699345d963f39885d1f0abd8b3020ffa789a86e1d7ee5",
       "recordCount": 110189
     },
     {
@@ -61,7 +61,7 @@
       "sourcePath": "proxy.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/proxy.txt",
       "sourceSha256": "4c3665b8ea451383460886aaaacbad9a6b0999eeb7c4e808c805b195783f5e11",
-      "outputSha256": "40cac12a7ec88f5d83d257903e0122808aea01eb4fe49e6a7716bd4392b0568d",
+      "outputSha256": "6cde0cc8f9dc879783b57f007598c6059416088ada1981eb98adb15e6d12944e",
       "recordCount": 27351
     },
     {
@@ -71,7 +71,7 @@
       "sourcePath": "private.txt",
       "sourceUrl": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/private.txt",
       "sourceSha256": "49972ad557345dd1abe94a62892f06cbc5b4cef12bf8d7ac5beca454b5de9088",
-      "outputSha256": "d7031839a17e20a0d460f641f6a560c9a7439b733d3a5d7f0b5f01c71268cd72",
+      "outputSha256": "e39ac77992428967b41d2b814ec667c644ef32243fef4bd09044ad9afee6c5c8",
       "recordCount": 132
     },
     {
